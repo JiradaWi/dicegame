@@ -9,7 +9,8 @@
       rel="stylesheet"
     />
     <script>
-      function refresh(){
+      var score = 0;
+      function refresh(guess){
         console.log('refresh me');
         var player1 = this.random(1,6);
         var player2 = this.random(1,6);
@@ -20,14 +21,23 @@
         document.getElementById("img1").src = player1ImgName;
         document.getElementById("img2").src = player2ImgName;
 
+        var result;
         var resultCmp = document.getElementById("result");
         if(player1 > player2){
           resultCmp.innerHTML = "Player1 WIN!";
+          result = 'p1';
         }else if(player2 > player1){
           resultCmp.innerHTML = "Player2 WIN!";
+          result = 'p2';
         }else{
           resultCmp.innerHTML = "Tie!";
+          result = 'tie';
         }
+
+        if(guess == result){
+          score++;
+        }
+        document.getElementById("score").innerHTML = 'Your score: '+score;
       }
 
       function random(min, max) { // min and max included 
@@ -37,19 +47,30 @@
   </head>
   <body >
     <div class="container">
-      <h1 onclick="refresh()">Refresh Me</h1>
+      <h1 >Guess the winner!</h1>
 
-      <div class="dice">
-        <p>Player 1</p>
-        <img class="img1" id="img1" src="images/dice1.png" />
+      <div>
+        <h2 onclick="refresh('p1')">Player1</h2>
+        <h2 onclick="refresh('p2')">Player2</h2>
+        <h2 onclick="refresh('tie')">Tie</h2>
       </div>
 
-      <div class="dice">
-        <p>Player 2</p>
-        <img class="img2" id="img2" src="images/dice1.png" />
+      <br/>
+      <div>
+        <div class="dice">
+          <p>Player 1</p>
+          <img class="img1" id="img1" src="images/dice1.png" />
+        </div>
+  
+        <div class="dice">
+          <p>Player 2</p>
+          <img class="img2" id="img2" src="images/dice1.png" />
+        </div>
       </div>
+     
 
       <h1 id="result"></h1>
+      <h1 id="score"></h1>
     </div>
 
     
